@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/style.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <h1>Todo App</h1>
+    <section class="pokemon-grid">
+      {% if todos %} {% for todo in todos %}
+      <article class="card">
+        <section class="header grass">
+          <h3 class="name">{{ todo['title'] }}</h3>
+        </section>
+      </article>
+      {% endfor %} {% else %}
+      <h2>Just nu har vi tekniska problem, försök igen senare</h2>
+      {% endif %}
+    </section>
+  </body>
+</html>

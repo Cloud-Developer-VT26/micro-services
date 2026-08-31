@@ -1,0 +1,43 @@
+networks:
+  frontend-network:
+  backend-network:
+
+volumes:
+  cloud-vt26-data:
+
+services:
+  database:
+    image: postgres
+    container_name: todoAppDBVT26
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: todo_db
+    volumes:
+      - cloud-vt26-data:/var/lib/postgresql/18/docker
+    networks:
+      - backend-network
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: todoAppApiVT26
+    ports:
+      - "4000:4000"
+    networks:
+      - backend-network
+      - frontend-network
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: todoAppFrontendVT26
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend-network
